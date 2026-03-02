@@ -1,0 +1,433 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MountGuide — App Preview</title>
+  <meta name="description" content="MountGuide is an all-in-one mobile app prototype for mountain enthusiasts: route planning, live weather, TOPR alerts, AI assistant, and community." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#101a2e;
+      --muted:#8ea0c6;
+      --text:#eaf0ff;
+      --line: rgba(255,255,255,.10);
+      --accent:#7dd3fc;
+      --accent2:#a7f3d0;
+      --shadow: 0 18px 45px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(125,211,252,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 20%, rgba(167,243,208,.14), transparent 55%),
+        radial-gradient(800px 600px at 50% 90%, rgba(125,211,252,.10), transparent 60%),
+        var(--bg);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:999px;
+      background: rgba(16,26,46,.55); backdrop-filter: blur(10px);
+      position: sticky; top: 14px; z-index: 30;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px}
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,243,208,.9));
+      box-shadow: 0 10px 25px rgba(125,211,252,.18);
+    }
+    .nav{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .nav a{
+      text-decoration:none; color:var(--muted); font-weight:600; font-size:14px;
+      padding:8px 10px; border-radius:999px; border:1px solid transparent;
+    }
+    .nav a:hover{color:var(--text); border-color:var(--line); background: rgba(255,255,255,.04)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line); background: rgba(255,255,255,.04);
+      text-decoration:none; font-weight:700; color:var(--text);
+      box-shadow: none; transition: transform .08s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.primary{
+      border-color: rgba(125,211,252,.35);
+      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,243,208,.16));
+    }
+    .hero{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:22px;
+      padding:34px 0 18px;
+      align-items:center;
+    }
+    @media (max-width: 920px){ .hero{grid-template-columns: 1fr; gap:18px} }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px; border:1px solid var(--line); border-radius:999px;
+      color:var(--muted); background: rgba(255,255,255,.03); font-weight:700; font-size:13px;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(32px, 4.4vw, 54px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .lead{
+      margin: 10px 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
+    }
+    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; color:var(--muted); font-weight:600; font-size:13px;
+    }
+    .chip{
+      padding:7px 10px; border:1px solid var(--line); border-radius:999px;
+      background: rgba(16,26,46,.45);
+    }
+    .phoneCard{
+      border:1px solid var(--line);
+      background: rgba(16,26,46,.45);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .device{
+      width:min(330px, 100%);
+      margin: 0 auto;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.55);
+    }
+    .screen{
+      border-radius: 22px;
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      aspect-ratio: 9 / 16;
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(234,240,255,.75);
+      font-weight:700;
+      text-align:center;
+      padding: 14px;
+    }
+    .screen img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+	object-position: center top; /* albo center / center bottom */
+      display:block;
+    }
+    .section{
+      margin-top: 34px;
+      padding-top: 10px;
+    }
+    .sectionHeader{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .sectionHeader h2{
+      margin:0; font-size: 22px; letter-spacing:-.2px;
+    }
+    .sectionHeader p{margin:0; color:var(--muted); max-width: 70ch}
+    .grid{
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16,26,46,.45);
+      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    @media (max-width: 920px){ .card{grid-column: span 12} }
+    .cardBody{padding:16px}
+    .cardTitle{display:flex; align-items:center; gap:10px; margin:0 0 6px; font-size:16px}
+    .icon{
+      width:32px; height:32px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight:900; color: rgba(234,240,255,.9);
+    }
+    .cardDesc{margin:0; color:var(--muted)}
+    .thumb{
+      border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      aspect-ratio: 16 / 9;
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(234,240,255,.7);
+      font-weight:700;
+    }
+    .thumb img{width:100%; height:100%; object-fit: cover; display:block}
+    .twoCol{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media (max-width: 920px){ .twoCol{grid-template-columns:1fr} }
+    .panel{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16,26,46,.45);
+      padding: 16px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+    }
+    .panel h3{margin:0 0 8px}
+    .list{margin:0; padding-left: 18px; color: var(--muted)}
+    .list li{margin:7px 0}
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 920px){ .gallery{grid-template-columns: repeat(2, 1fr)} }
+    .shot{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+      aspect-ratio: 9 / 16;
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(234,240,255,.7);
+      font-weight:700;
+    }
+    .shot img{width:100%; height:100%; object-fit: cover; display:block}
+    .footer{
+      margin-top: 34px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16,26,46,.45);
+      padding: 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; flex-wrap:wrap;
+    }
+    .small{color:var(--muted); font-size: 13px}
+    .divider{height:1px; background: var(--line); margin: 18px 0}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>MountGuide</div>
+      </div>
+
+      <div class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#journey">User Journey</a>
+        <a href="#screens">Screens</a>
+        <a href="#prototype" class="btn primary">Open Prototype</a>
+      </div>
+    </div>
+
+
+    <section class="hero" id="overview">
+      <div>
+        <div class="kicker">Mobile Prototype • Hiking & Mountains</div>
+        <h1>Plan safer, smarter mountain trips — in one app.</h1>
+        <p class="lead">
+          MountGuide is an all-in-one app concept for mountain enthusiasts who want to plan enjoyable hikes with
+          <strong>live weather</strong>, <strong>updated TOPR alerts</strong>, <strong>interactive maps</strong>,
+          an <strong>AI assistant</strong> for route personalization, and a <strong>community</strong> to share tips.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="https://mountguide.lovable.app/" target="_blank" rel="noopener">
+            ▶ View Live Prototype
+          </a>
+          <a class="btn" href="#screens">📱 See Screens</a>
+          <a class="btn" href="#features">✨ Key Features</a>
+        </div>
+
+        <div class="meta">
+          <span class="chip">All-in-one planning</span>
+          <span class="chip">AI route customization</span>
+          <span class="chip">Real-time updates</span>
+          <span class="chip">Community recommendations</span>
+        </div>
+      </div>
+
+      <div class="phoneCard">
+        <div class="device">
+          <div class="screen">
+            <img src="mainpage.png" alt="MountGuide app preview screen">
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="small">
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION -->
+    <section class="section">
+      <div class="twoCol">
+        <div class="panel">
+          <h3>The Problem</h3>
+          <p class="small">
+            Hikers often jump between multiple tools: maps, weather apps, alert pages, forums, and messengers.
+            This fragmentation makes planning slower and increases the risk of missing critical updates.
+          </p>
+        </div>
+        <div class="panel">
+          <h3>The Solution</h3>
+          <p class="small">
+            MountGuide centralizes planning and safety into one experience — with personalized routes, live data,
+            and a social space for sharing recommendations and trip insights.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="sectionHeader">
+        <div>
+          <h2>Key Features</h2>
+          <p>Short, clear blocks — perfect for an app preview or portfolio landing page.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="cardBody">
+            <h3 class="cardTitle"><span class="icon">🗺️</span> Smart Route Planning</h3>
+            <p class="cardDesc">
+              Explore trails, compare difficulty, and plan routes that match your time, fitness level, and goals.
+            </p>
+          </div>
+          <div class="thumb">
+            <img src="map.png" alt="Route planning screen">
+                
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="cardBody">
+            <h3 class="cardTitle"><span class="icon">🌦️</span> Live Weather & TOPR Alerts</h3>
+            <p class="cardDesc">
+              Stay up to date with changing conditions. Get real-time weather and updated safety communications.
+            </p>
+          </div>
+          <div class="thumb">
+            <img src="weather.png" alt="Weather and alerts screen"
+                
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="cardBody">
+            <h3 class="cardTitle"><span class="icon">🤖</span> AI Hiking Assistant</h3>
+            <p class="cardDesc">
+              Personalize your plan: route suggestions, gear tips, safety recommendations, and instant answers.
+            </p>
+          </div>
+          <div class="thumb">
+            <img src="mainpage.png" alt="AI assistant screen">
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="cardBody">
+            <h3 class="cardTitle"><span class="icon">🏔️</span> Community & Recommendations</h3>
+            <p class="cardDesc">
+              Share trail tips, favorite routes, and trip updates with other mountain enthusiasts.
+            </p>
+          </div>
+          <div class="thumb">
+            <img src="community.png" alt="Community screen">  
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- USER JOURNEY -->
+    <section class="section" id="journey">
+      <div class="sectionHeader">
+        <div>
+          <h2>User Journey</h2>
+          <p>Simple flow that explains the value without any heavy UX diagrams.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <ol class="list">
+          <li>Select a destination or region.</li>
+          <li>Check live weather and TOPR updates.</li>
+          <li>Use the AI assistant to tailor the route (time, difficulty, experience).</li>
+          <li>Save the plan and prepare with gear suggestions.</li>
+          <li>Share tips and updates with the community.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SCREENS -->
+    <section class="section" id="screens">
+      <div class="sectionHeader">
+        <div>
+          <h2>App Screens</h2>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <div class="shot">
+          <img src="mainpage.png" alt="Screen 1">
+        </div>
+        <div class="shot">
+          <img src="weather.png" alt="Screen 2">
+        </div>
+        <div class="shot">
+          <img src="topr.png" alt="Screen 3">
+        </div>
+        <div class="shot">
+          <img src="map.png" alt="Screen 4">
+        </div>
+      </div>
+
+      <div class="small" style="margin-top:10px;">
+      </div>
+    </section>
+
+    <!-- FOOTER / PROTOTYPE -->
+    <section class="section" id="prototype">
+      <div class="footer">
+        <div>
+          <div style="font-weight:800; font-size:16px;">Try the live prototype</div>
+          <div class="small">Open MountGuide and explore the concept in your browser.</div>
+        </div>
+        <a class="btn primary" href="https://mountguide.lovable.app/" target="_blank" rel="noopener">
+          Open https://mountguide.lovable.app/
+        </a>
+      </div>
+    </section>
+
+    <div class="small" style="margin-top:14px; text-align:center;">
+      © <span id="year"></span> MountGuide • App preview page (portfolio-ready)
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
